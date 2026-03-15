@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Love Vault</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+min-height:100dvh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:20px;
+
+background:
+linear-gradient(rgba(10,10,15,0.85),rgba(10,10,15,0.95)),
+url("https://images.unsplash.com/photo-1509042239860-f550ce710b93");
+
+background-size:cover;
+background-position:center;
+
+font-family:'Poppins',sans-serif;
+
+color:white;
+overflow:hidden;
+
+}
+
+/* LOGIN CARD */
+
+.login-card{
+
+width:100%;
+max-width:360px;
+
+padding:45px;
+
+background:rgba(255,255,255,0.06);
+
+border:1px solid rgba(255,255,255,0.15);
+
+backdrop-filter:blur(15px);
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:0 25px 50px rgba(0,0,0,0.6);
+
+transition:
+transform 0.6s ease,
+opacity 0.6s ease,
+filter 0.6s ease;
+
+}
+
+.title{
+
+font-family:'Playfair Display',serif;
+
+font-size:34px;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+font-size:14px;
+
+opacity:0.7;
+
+margin-bottom:35px;
+
+}
+
+input{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:8px;
+
+margin-bottom:20px;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+button{
+
+width:100%;
+
+padding:14px;
+
+background:#ff4d6d;
+
+border:none;
+
+border-radius:8px;
+
+color:white;
+
+font-size:15px;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+button:hover{
+
+background:#ff2e55;
+
+transform:translateY(-2px);
+
+}
+
+.error{
+
+margin-top:12px;
+
+font-size:14px;
+
+color:#ffb3b3;
+
+}
+
+/* UNLOCK ANIMATION */
+
+.unlocking{
+
+transform:scale(1.2);
+opacity:0;
+filter:blur(10px);
+
+}
+
+/* VAULT TEXT */
+
+.vault-open{
+
+position:absolute;
+
+font-family:'Playfair Display',serif;
+
+font-size:40px;
+
+opacity:0;
+
+animation:openVault 2s forwards;
+
+}
+
+@keyframes openVault{
+
+0%{
+opacity:0;
+transform:scale(0.8);
+}
+
+50%{
+opacity:1;
+transform:scale(1.2);
+}
+
+100%{
+opacity:0;
+transform:scale(1.4);
+}
+
+}
+
+.footer{
+
+position:fixed;
+
+bottom:20px;
+
+left:0;
+right:0;
+
+text-align:center;
+
+font-size:12px;
+
+opacity:0.5;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-card" id="card">
+
+<div class="title">Love Vault</div>
+
+<div class="subtitle">A private place for our memories</div>
+
+<input type="password" id="password" placeholder="Enter our special date">
+
+<button onclick="unlock()">Unlock Vault</button>
+
+<p class="error" id="error"></p>
+
+</div>
+
+<div class="footer">Only love belongs here</div>
+
+<script>
+
+function unlock(){
+
+let password=document.getElementById("password").value;
+
+let card=document.getElementById("card");
+
+if(password.trim()===""){
+document.getElementById("error").innerText="Enter password first";
+return;
+}
+
+if(password==="23092019"){
+
+card.classList.add("unlocking");
+
+let text=document.createElement("div");
+
+text.className="vault-open";
+
+text.innerText="Vault Unlocked ❤️";
+
+document.body.appendChild(text);
+
+setTimeout(function(){
+
+window.location.href="vault.html";
+
+},2200);
+
+}
+
+else{
+
+document.getElementById("error").innerText="Wrong password";
+
+}
+
+}
+
+document.getElementById("password").addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+unlock();
+}
+
+});
+
+</script>
+
+</body>
+</html>
