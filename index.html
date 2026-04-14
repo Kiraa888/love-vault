@@ -1,286 +1,1848 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-<title>Love Vault</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-
-min-height:100dvh;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-padding:20px;
-
-background:
-linear-gradient(rgba(10,10,15,0.85),rgba(10,10,15,0.95)),
-url("https://images.unsplash.com/photo-1509042239860-f550ce710b93");
-
-background-size:cover;
-background-position:center;
-
-font-family:'Poppins',sans-serif;
-
-color:white;
-overflow:hidden;
-
-}
-
-/* LOGIN CARD */
-
-.login-card{
-
-width:100%;
-max-width:360px;
-
-padding:45px;
-
-background:rgba(255,255,255,0.06);
-
-border:1px solid rgba(255,255,255,0.15);
-
-backdrop-filter:blur(15px);
-
-border-radius:18px;
-
-text-align:center;
-
-box-shadow:0 25px 50px rgba(0,0,0,0.6);
-
-transition:
-transform 0.6s ease,
-opacity 0.6s ease,
-filter 0.6s ease;
-
-}
-
-.title{
-
-font-family:'Playfair Display',serif;
-
-font-size:34px;
-
-margin-bottom:10px;
-
-}
-
-.subtitle{
-
-font-size:14px;
-
-opacity:0.7;
-
-margin-bottom:35px;
-
-}
-
-input{
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:8px;
-
-margin-bottom:20px;
-
-font-size:16px;
-
-outline:none;
-
-}
-
-button{
-
-width:100%;
-
-padding:14px;
-
-background:#ff4d6d;
-
-border:none;
-
-border-radius:8px;
-
-color:white;
-
-font-size:15px;
-
-cursor:pointer;
-
-transition:0.3s;
-
-}
-
-button:hover{
-
-background:#ff2e55;
-
-transform:translateY(-2px);
-
-}
-
-.error{
-
-margin-top:12px;
-
-font-size:14px;
-
-color:#ffb3b3;
-
-}
-
-/* UNLOCK ANIMATION */
-
-.unlocking{
-
-transform:scale(1.2);
-opacity:0;
-filter:blur(10px);
-
-}
-
-/* VAULT TEXT */
-
-.vault-open{
-
-position:absolute;
-
-font-family:'Playfair Display',serif;
-
-font-size:40px;
-
-opacity:0;
-
-animation:openVault 2s forwards;
-
-}
-
-@keyframes openVault{
-
-0%{
-opacity:0;
-transform:scale(0.8);
-}
-
-50%{
-opacity:1;
-transform:scale(1.2);
-}
-
-100%{
-opacity:0;
-transform:scale(1.4);
-}
-
-}
-
-.footer{
-
-position:fixed;
-
-bottom:20px;
-
-left:0;
-right:0;
-
-text-align:center;
-
-font-size:12px;
-
-opacity:0.5;
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Vault</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <link rel="preload" as="image" href="https://iili.io/q0QEQWJ.jpg">
+  <link rel="preload" as="image" href="https://iili.io/q0QEUlV.jpg">
+  <link rel="preload" as="image" href="https://iili.io/q0QE6R1.jpg">
+  <link rel="preload" as="image" href="https://iili.io/q0Q1b99.jpg">
+
+  <style>
+    /* ─── CSS VARIABLES ─── */
+    :root {
+      --rose:       #ffffff;
+      --rose-dk:    #c9607a;
+      --accent:     #e8a0b0;
+      --bg:         #0d0d0f;
+      --bg2:        #141417;
+      --bg3:        #1c1c21;
+      --text:       #f0e8e8;
+      --muted:      rgba(240,232,232,0.5);
+      --glass:      rgba(255,255,255,0.04);
+      --border:     rgba(255,255,255,0.08);
+      --radius:     18px;
+      --nav-h:      68px;
+      /* side nav */
+      --glow:       rgba(232,160,176,0.4);
+      --glow-solid: #e8a0b0;
+      --speed:      0.4s;
+    }
+
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: default;
+      /* space for bottom pill on mobile */
+      padding-bottom: 100px;
+      
+      /* ADDED: Font Smoothing to fix jagged edges on large screens */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ADDED: Fix faux-bolding on all headings */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── TOP NAVBAR ─── */
+    .top-navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: var(--nav-h);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 28px;
+      background: rgba(13,13,15,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      z-index: 2000;
+    }
+
+    .logo, .mixed-name {
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    
+    .logo:hover, .mixed-name:hover {
+      opacity: 0.7;
+    }
+
+    .logo { display: flex; flex-direction: column; gap: 2px; }
+
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-style: normal;
+      font-size: 21px;
+      font-weight: 600; /* ADDED */
+      letter-spacing: 1px;
+      color: var(--rose);
+    }
+
+    .sub-text {
+      font-size: 10px;
+      letter-spacing: 3px;
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+
+    .mixed-name {
+      font-family: 'Playfair Display', serif;
+      font-style: normal;
+      font-size: 16px;
+      font-weight: 600; /* ADDED */
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--rose);
+      opacity: 0.9;
+    }
+
+    /* ─── COUNTER ─── */
+    .counter {
+      margin-top: var(--nav-h);
+      text-align: center;
+      padding: 10px 0;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+      border-bottom: 1px solid var(--border);
+      color: var(--rose);
+      opacity: 0;
+      animation: fadeIn 1s 0.3s forwards;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      width: 100%;
+      aspect-ratio: 21 / 9;
+      max-height: 580px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider { position: relative; width: 100%; height: 100%; }
+
+    .slide {
+      position: absolute; inset: 0;
+      opacity: 0; z-index: 1;
+      transition: opacity 1.2s ease;
+    }
+
+    .slide.active { opacity: 1; z-index: 2; }
+
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      filter: brightness(60%); display: block;
+    }
+
+    .overlay {
+      position: absolute; bottom: 28px; left: 28px;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(6px);
+      padding: 7px 16px; border-radius: 30px;
+      font-size: 13px; border: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px;
+    }
+
+    .dots {
+      position: absolute; bottom: 28px; right: 28px;
+      display: flex; gap: 6px; z-index: 5;
+    }
+
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .dot.active { background: var(--rose); transform: scale(1.3); }
+
+    /* ─── SECTION TITLE ─── */
+    .section-title {
+      text-align: center;
+      margin: 56px 0 32px;
+      position: relative;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: '- - - - - - -';
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 12px;
+      color: var(--rose);
+      opacity: 0.5;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      letter-spacing: 4px;
+    }
+
+    .section-title span {
+      font-family: 'Playfair Display', serif;
+      font-style: normal;
+      font-weight: 600; /* ADDED */
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--rose);
+    }
+
+    /* ─── GALLERY ─── */
+    .gallery { columns: 3; column-gap: 8px; padding: 8px; }
+    @media (min-width: 768px) { .gallery { columns: 5; } }
+
+    .box {
+      break-inside: avoid; margin-bottom: 8px;
+      border-radius: var(--radius); overflow: hidden;
+      cursor: pointer; position: relative; background: var(--bg3);
+    }
+
+    .box img { width: 100%; display: block; transition: transform 0.4s ease; }
+    .box:hover img { transform: scale(1.06); }
+
+    .photo-title {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      padding: 28px 14px 12px; font-size: 13px; letter-spacing: 0.5px; color: white;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+
+    .box:hover .photo-title { opacity: 1; }
+
+    /* ─── VERTICAL TIMELINE ─── */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 10px 0 40px;
+    }
+    
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 1px;
+      background: var(--border);
+      top: 0; bottom: 0; left: 50%;
+      margin-left: -0.5px;
+    }
+
+    .tl-item {
+      padding: 10px 40px;
+      position: relative;
+      background: inherit;
+      width: 50%;
+    }
+
+    .tl-item.left { left: 0; }
+    .tl-item.right { left: 50%; }
+
+    .tl-item::after {
+      content: '';
+      position: absolute;
+      width: 12px; height: 12px;
+      right: -6px; top: 24px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .tl-item.right::after { left: -6px; }
+
+    .tl-content {
+      padding: 24px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .tl-date {
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .tl-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600; /* ADDED */
+      font-size: 20px;
+      color: var(--rose);
+      margin-bottom: 10px;
+    }
+
+    .tl-img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .tl-desc {
+      font-size: 16px;
+      opacity: 0.65;
+      line-height: 1.6;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--accent);
+      font-size: 12px;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+      color: var(--rose);
+    }
+
+    @media (max-width: 768px) {
+      .timeline::after { left: 30px; }
+      .tl-item { width: 100%; padding-left: 70px; padding-right: 20px; }
+      .tl-item.right { left: 0%; }
+      .tl-item.left::after, .tl-item.right::after { left: 24px; }
+    }
+
+    /* ─── GENERAL MODAL STYLES ─── */
+    .modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 3000; opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .modal.open { opacity: 1; pointer-events: all; }
+    
+    .close {
+      position: absolute; top: 14px; right: 18px; font-size: 26px;
+      cursor: pointer; opacity: 0.5; transition: opacity 0.2s;
+      line-height: 1; font-family: sans-serif; font-weight: 300;
+      z-index: 10;
+    }
+    .close:hover { opacity: 1; }
+
+    /* ─── GALLERY PHOTO MODAL ─── */
+    .modal-content {
+      background: var(--bg2); width: 92%; max-width: 980px;
+      max-height: 90vh; border-radius: 20px; display: flex; position: relative;
+      border: 1px solid var(--border); transform: scale(0.96);
+      transition: transform 0.35s ease; overflow: hidden;
+    }
+    .modal.open .modal-content { transform: scale(1); }
+
+    .modal-image { flex: 1.1; min-height: 300px; overflow: hidden; }
+    .modal-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .modal-details {
+      flex: 1; padding: 36px 30px 30px; position: relative;
+      display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;
+      overflow-y: auto; /* ADDED FOR SCROLLBAR */
+    }
+
+    .modal-details h2 {
+      font-family: 'Playfair Display', serif; 
+      font-style: normal;
+      font-weight: 600; /* ADDED */
+      font-size: 22px; 
+      color: var(--rose); 
+      line-height: 1.3;
+    }
+
+    .modal-date { font-size: 13px; letter-spacing: 2px; opacity: 0.45; text-transform: uppercase; }
+    .modal-desc { font-size: 16px; line-height: 1.7; opacity: 0.75; }
+
+    .dl-btn {
+      margin-top: 8px; padding: 12px 24px; border: none;
+      background: linear-gradient(135deg, var(--rose-dk), #e8a0b0);
+      color: white; border-radius: 30px; cursor: pointer;
+      font-family: 'Cormorant Garamond', serif; font-size: 15px;
+      letter-spacing: 1px; font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s; align-self: flex-start;
+    }
+
+    .dl-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .dl-btn:active { transform: translateY(0); }
+
+    @media (max-width: 700px) {
+      .modal-content { flex-direction: column; }
+      .modal-image { min-height: 240px; max-height: 45vh; }
+      .modal-details { padding: 24px 20px 24px; }
+    }
+
+    /* ─── STORY MODAL (TIMELINE) ─── */
+    .story-modal-content {
+      flex-direction: column;
+      max-width: 650px; 
+      max-height: 85vh;
+      overflow-y: auto; 
+      padding: 40px 30px;
+    }
+    
+    .story-modal-content h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif; 
+      font-weight: 600; /* ADDED */
+      font-size: 26px; 
+      color: var(--rose); 
+      margin-bottom: 8px;
+    }
+
+    .story-modal-content .modal-date {
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--accent);
+    }
+
+    .story-modal-content img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .story-modal-content .story-body {
+      font-size: 17px;
+      line-height: 1.8;
+      opacity: 0.85;
+      text-align: left;
+    }
+
+    /* ─── CUSTOM SCROLLBARS FOR MODALS ─── */
+    .modal-details::-webkit-scrollbar,
+    .story-modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .modal-details::-webkit-scrollbar-track,
+    .story-modal-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .modal-details::-webkit-scrollbar-thumb,
+    .story-modal-content::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+    
+    .modal-details::-webkit-scrollbar-thumb:hover,
+    .story-modal-content::-webkit-scrollbar-thumb:hover {
+      background: var(--rose-dk);
+    }
+
+    /* ─── SOCIAL BUTTONS FOR ABOUT SECTION ─── */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--rose);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      background: var(--rose-dk);
+      border-color: var(--rose-dk);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(201, 96, 122, 0.25);
+    }
+
+    .social-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      text-align: center; padding: 40px 20px; font-size: 13px;
+      letter-spacing: 2px; opacity: 0.25;
+      border-top: 1px solid var(--border); margin-top: 48px;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ══════════════════════════════════════════════
+       SIDE / BOTTOM NAV (4 ITEMS)
+    ══════════════════════════════════════════════ */
+    .sidenav {
+      position: fixed;
+      z-index: 1500;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 85%;
+      max-width: 400px;
+      height: 66px;
+      flex-direction: row;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      background: rgba(20,20,23,0.85);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 40px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.55),
+        inset 0 1px 1px rgba(255,255,255,0.06);
+
+      --x:      0px;
+      --y:      0px;
+      --item-w: 54px;
+      --item-h: 54px;
+    }
+
+    @media (min-width: 600px) {
+      body { padding-bottom: 0; }
+      .sidenav {
+        bottom: auto;
+        left: auto;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 82px;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px; 
+        padding: 22px 0;
+        border-radius: 36px;
+      }
+    }
+
+    .sn-item {
+      position: relative;
+      background: transparent;
+      border: none;
+      color: rgba(240,232,232,0.38);
+      cursor: pointer;
+      z-index: 2;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      gap: 3px;
+      transition: color var(--speed) ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sn-item .material-symbols-outlined {
+      font-size: 22px;
+      line-height: 1;
+      transition: all var(--speed) ease;
+      font-variation-settings: 'FILL' 0;
+    }
+
+    .sn-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 9.5px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: none;
+      line-height: 1;
+    }
+
+    @media (min-width: 600px) {
+      .sn-label { display: block; }
+      .sn-item  { width: 72px; height: 64px; border-radius: 16px; }
+      .sn-item .material-symbols-outlined { font-size: 20px; }
+    }
+
+    .sn-item.active { color: var(--glow-solid); }
+
+    .sn-item.active .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1;
+    }
+
+    .sn-bar {
+      position: absolute;
+      border-radius: 10px;
+      background: var(--glow-solid);
+      box-shadow: 0 0 12px var(--glow), 0 0 4px var(--glow-solid);
+      z-index: 3;
+      pointer-events: none;
+      top: -1px;
+      left: 0;
+      width: calc(var(--item-w) * 0.55);
+      height: 3px;
+      transform: translateX(calc(var(--x) - 50%));
+      transition:
+        transform var(--speed) cubic-bezier(0.25, 1, 0.5, 1),
+        width     var(--speed) cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    @media (min-width: 600px) {
+      .sn-bar {
+        top: 0;
+        left: -1px;
+        width: 3px;
+        height: calc(var(--item-h) * 0.55);
+        transform: translateY(calc(var(--y) - 50%));
+        transition:
+          transform var(--speed) cubic-bezier(0.25, 1, 0.5, 1),
+          height    var(--speed) cubic-bezier(0.25, 1, 0.5, 1);
+      }
+    }
+
+    .sn-glow {
+      position: absolute;
+      top: 0; left: 0;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, var(--glow) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+      width:  calc(var(--item-w) + 30px);
+      height: 64px;
+      transform: translateX(calc(var(--x) - 50%));
+      transition:
+        transform var(--speed) cubic-bezier(0.25, 1, 0.5, 1),
+        width     var(--speed) cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    @media (min-width: 600px) {
+      .sn-glow {
+        width:  100%;
+        height: calc(var(--item-h) + 34px);
+        transform: translateY(calc(var(--y) - 50%));
+        transition:
+          transform var(--speed) cubic-bezier(0.25, 1, 0.5, 1),
+          height    var(--speed) cubic-bezier(0.25, 1, 0.5, 1);
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       LOGIN SCREEN
+    ══════════════════════════════════════════════ */
+    #loginScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 24px;
+    }
+
+    #loginScreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .login-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 44px 40px 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .login-heart {
+      font-size: 48px;
+      margin-bottom: 8px;
+      display: block;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.15); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.1); }
+      56% { transform: scale(1); }
+    }
+
+    .login-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--rose);
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .login-sub {
+      font-size: 13px;
+      letter-spacing: 3px;
+      opacity: 0.4;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .pin-dot.filled {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 10px var(--glow);
+    }
+
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 260px;
+      margin: 0 auto 16px;
+    }
+
+    .pin-key {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      padding: 16px 0;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .pin-key:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .pin-key:active {
+      transform: scale(0.93);
+      background: rgba(232,160,176,0.15);
+      border-color: var(--accent);
+    }
+
+    .pin-key.del {
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    .pin-key.zero {
+      grid-column: 2;
+    }
+
+    .login-error {
+      font-size: 13px;
+      color: #e8a0b0;
+      letter-spacing: 1px;
+      min-height: 20px;
+      margin-top: 4px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .login-error.show {
+      opacity: 1;
+    }
+
+    /* shake animation on wrong PIN */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+    }
+
+    .pin-dots.shake {
+      animation: shake 0.4s ease;
+    }
+
+    /* ══════════════════════════════════════════════
+       SESSION TIMER BADGE
+    ══════════════════════════════════════════════ */
+    #sessionTimer {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5000;
+      background: rgba(20,20,23,0.92);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 30px;
+      padding: 6px 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      display: none;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    #sessionTimer.urgent {
+      color: #e8a0b0;
+      border-color: rgba(232,160,176,0.4);
+      box-shadow: 0 0 14px rgba(232,160,176,0.15);
+    }
+
+    #sessionTimer .timer-icon {
+      font-size: 15px;
+    }
+
+    /* Warning overlay before logout */
+    #sessionWarning {
+      position: fixed;
+      inset: 0;
+      z-index: 90000;
+      background: rgba(0,0,0,0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #sessionWarning.show {
+      display: flex;
+    }
+
+    .warning-card {
+      background: var(--bg2);
+      border: 1px solid rgba(232,160,176,0.3);
+      border-radius: 24px;
+      padding: 40px 36px;
+      text-align: center;
+      max-width: 340px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .warning-icon {
+      font-size: 44px;
+      margin-bottom: 12px;
+      display: block;
+      animation: pulse-warn 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse-warn {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .warning-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+
+    .warning-card p {
+      font-size: 15px;
+      opacity: 0.6;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .warning-countdown {
+      font-size: 40px;
+      font-family: 'Playfair Display', serif;
+      color: #e8a0b0;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .warning-btn {
+      background: linear-gradient(135deg, var(--rose-dk), #e8a0b0);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      padding: 13px 32px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .warning-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  </style>
 </head>
 
 <body>
 
-<div class="login-card" id="card">
+  <div id="loginScreen">
+    <div class="login-card">
+      <span class="login-heart">🤍</span>
+      <div class="login-title">Love Vault</div>
+      <div class="login-sub">ANIDIRA · Private Space</div>
 
-<div class="title">Love Vault</div>
+      <div class="pin-dots" id="pinDots">
+        <div class="pin-dot" id="dot0"></div>
+        <div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div>
+        <div class="pin-dot" id="dot3"></div>
+      </div>
 
-<div class="subtitle">A private place for our memories</div>
+      <div class="pin-keypad">
+        <button class="pin-key" onclick="pinPress('1')">1</button>
+        <button class="pin-key" onclick="pinPress('2')">2</button>
+        <button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button>
+        <button class="pin-key" onclick="pinPress('5')">5</button>
+        <button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button>
+        <button class="pin-key" onclick="pinPress('8')">8</button>
+        <button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key zero" onclick="pinPress('0')">0</button>
+        <button class="pin-key del" onclick="pinDel()">⌫</button>
+      </div>
 
-<input type="password" id="password" placeholder="Enter our special date">
+      <div class="login-error" id="loginError">Wrong PIN. Try again 🔒</div>
+    </div>
+  </div>
 
-<button onclick="unlock()">Unlock Vault</button>
+  <div id="sessionTimer">
+    <span class="timer-icon">⏳</span>
+    <span id="timerDisplay">10:00</span>
+  </div>
 
-<p class="error" id="error"></p>
+  <div id="sessionWarning">
+    <div class="warning-card">
+      <span class="warning-icon">⏰</span>
+      <h3>Session Expiring</h3>
+      <p>Your session is about to end. Stay logged in?</p>
+      <div class="warning-countdown" id="warningCountdown">30</div>
+      <button class="warning-btn" onclick="extendSession()">Stay Logged In 🤍</button>
+    </div>
+  </div>
+
+  <nav class="top-navbar">
+    <div class="logo" onclick="goHome()">
+      <span class="logo-name">Love Vault</span>
+      <span class="sub-text">Since 23 · 09 · 2019</span>
+    </div>
+    <div class="mixed-name" onclick="goHome()">ANIDIRA 💞</div>
+  </nav>
+
+  <div class="counter" id="relationshipCounter"></div>
+
+  <section class="hero" id="home">
+    <div class="slider" id="slider">
+      <div class="slide active">
+        <img src="https://iili.io/q0QEQWJ.jpg" alt="The Bench Where Time Paused">
+        <div class="overlay">🌅 The Bench Where Time Paused</div>
+      </div>
+      <div class="slide">
+        <img src="https://iili.io/q0QEUlV.jpg" alt="Hold Tight, The Journey is Ours">
+        <div class="overlay">🤍 Hold Tight, The Journey is Ours</div>
+      </div>
+      <div class="slide">
+        <img src="https://iili.io/q0QE6R1.jpg" alt="ANIDIRA">
+        <div class="overlay">💞 ANIDIRA</div>
+      </div>
+      <div class="slide">
+        <img src="https://iili.io/q0Q1b99.jpg" alt="Sealed with a Kiss">
+        <div class="overlay">💋 Sealed with a Kiss</div>
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <h2 class="section-title" id="memories"><span>Our Memories</span></h2>
+  <section class="gallery" id="gallery"></section>
+
+  <h2 class="section-title" id="timeline"><span>Our Journey</span></h2>
+  <section class="timeline">
+    
+    <div class="tl-item right">
+      <div class="tl-content">
+        <div class="tl-date">23 Sep 2019</div>
+        <div class="tl-title">Our Story — From Cold War to Forever ❤️</div>
+        <img class="tl-img" src="https://iili.io/B7X6OZX.png" alt="All Begin">
+        <div class="tl-desc">
+          It all began in 2019, when we were in Class 9. Until then, our school had no girls—only in Class 9...
+        </div>
+        <div class="full-story" style="display: none;">
+          It all began in 2019, when we were in Class 9. Until then, our school had no girls—only in Class 9 did girls start joining through transfers. That year, everything felt different, and that’s when she entered my life, though neither of us knew what was about to begin. On her very first day, she noticed me talking to another girl and immediately judged me, calling me “দালাল” in her mind. Later, when she saw that I didn’t really talk to any girls in class, she changed my title to <b>“Mr. Attitude.” </b>And me? Seeing how strict, disciplined, and commanding she was, always leading the girls and taking control of situations, I secretly gave her a nickname—<b>“Miss Hitler.”</b> It wasn’t out of hate, but because of the strong aura she carried that made everyone listen to her.
+
+As more girls joined the class, a strange kind of cold war started between boys and girls. If one boy made a mistake, the entire group of boys would be blamed. And leading the girls’ side was her—confident, bold, and always ready to stand up. I never really got involved in those fights; I stayed away from all the drama. But one day, the boys had a meeting to figure out how to handle the situation, and someone suggested that if their leader could be won over, everything would calm down. Somehow, they chose me for the task, probably because I had just gone through a breakup and was single. Without thinking much, I agreed and said I would make her fall for me. At that time, it was just a plan—nothing more.
+
+On 3rd September 2019, I made my first move by sending her a message through her friend, telling her that I liked her. She wasn’t the kind of girl who believed in relationships. She was a topper, focused on studies, and had already rejected many boys without hesitation. So honestly, I didn’t have much hope. But instead of rejecting me, she said something unexpected—she told me to wait. I asked her how long, jokingly saying one week, one month, or two months. She looked at me and said, “One year.” She thought I would give up, that this was just a test I wouldn’t pass. But I calmly said yes, that I would wait.
+
+From that day, I didn’t try to force anything. Instead, I slowly became a part of her daily life. I would sit on her seat and wait for her. When she arrived, she would tell me to go back to my place. During class, I would quietly look at her, and she would turn back and tell me to focus on studies instead of her. But somewhere in between, she started liking it. Without realizing, she got used to my presence. I had become a part of her routine. Then one day, I didn’t go to school. That day, something changed. Later, I came to know that she wasn’t herself—she didn’t ask anyone directly, but her eyes kept searching for me. She felt my absence, and that’s when I understood that she had started missing me.
+
+That’s when I decided it was time for the final step. On 23rd September 2019, I went to school and completely ignored her. I didn’t look at her, didn’t talk to her, didn’t react at all. In class, even when she turned back to look at me, I avoided eye contact. She felt the sudden change, the silence, the absence of everything she had slowly gotten used to. After a few classes, I went up to her desk, placed my hand firmly on it, stood right in front of her, and told her to say whatever she wanted to say that day itself. She got nervous. Her friends were already pushing her, telling her to say yes or she would regret it. Still, she couldn’t say anything at that moment.
+
+Later, when I was going to submit my scholarship documents, she and her friend stopped me on the way. She wanted to say something, but instead started talking about some issue in my documents. I took the papers from her hand and walked away, still maintaining that serious, distant attitude. I continued ignoring her the entire day. After the last class, she was waiting outside. Only a few of us were left in the classroom when she called me out. I already knew what she was going to say, but I kept a calm and serious expression. Then, in a single moment, she said, “Don’t tell anyone, but from my side, it’s a yes.” For a second, I was completely shocked. I just stood there, not moving, not reacting. My plan had worked—but in that moment, it didn’t feel like a plan anymore.
+
+What started as a simple challenge, almost like a game, slowly turned into something real. With time, we both fell in love—truly, deeply, and loyally. It was no longer about winning or proving anything. It became about understanding, caring, and being there for each other. And that’s how I became the reason a girl who once didn’t believe in love or relationships… finally started believing in it. ❤️
+
+
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
+    
+    <div class="tl-item left">
+      <div class="tl-content">
+        <div class="tl-date">24 December 2023</div>
+        <div class="tl-title">Our First Everything: From Ayodhya Hills to Raas Mela ✨🚌
 
 </div>
+        <img class="tl-img" src="https://iili.io/qZjXvR4.jpg" alt="Temple Visit">
+        <div class="tl-desc">
+          ​The day began in the familiar surroundings of the Chelyama Computer Training Center, but December 24, 2023, was destined to be a massive milestone in our story—our...
+        </div>
+        <div class="full-story" style="display: none;">
+          The day began in the familiar surroundings of the Chelyama Computer Training Center, but December 24, 2023, was destined to be a massive milestone in our story—our very first trip and first picnic together! 🎒🌿 The center had organized a highly anticipated getaway to the breathtaking Ayodhya Hills, and the excitement among all of us was palpable. Boarding the bus with our classmates, the air was thick with laughter, music, and endless chatter 🎶. Yet, amidst the vibrant noise, we found our own quiet sanctuary simply by sitting next to each other. The long drive slipped by effortlessly; every passing mile felt entirely special just because Manu (Mandira) was by my side ❤️. After hours on the road, we finally arrived at the Lower Dam of Ayodhya Hills. The view was breathtaking—serene waters framed by green hills and touched by a gentle, refreshing breeze 🍃. Almost immediately, the teachers began assigning tasks, directing most of the girls to prep for the cooking. But in that moment, I couldn’t bear the thought of losing her to the busy crowd. Quietly, I pulled her away, and we walked down toward the dam together 🌊. Away from the responsibilities and the noise, time seemed to slow down just for us. The calm surroundings and the comfortable silence between us felt like magic ✨. In that quiet corner, we captured a simple couple photo 📸. It wasn’t just a picture; it was a memory stolen from time itself, a quiet testament to our bond that we would carry forever.
+​As the afternoon faded into evening, we boarded the bus for the journey back 🚌🌅. The atmosphere had shifted from energetic excitement to a comfortable, contented exhaustion. The bus was filled with tired faces, soft laughter, and quiet, reflective moments. Somewhere between the lingering noise of our friends and the peaceful silence between us, we snapped another photo—a simple, unplanned memory that perfectly captured the quiet joy of the ride home 🌙. But the night had one last beautiful surprise in store for us: our first mela! 🎡 As darkness settled, our bus made a stop in Purulia so we could experience the vibrant Raas Mela. Stepping out, we were instantly enveloped by a world of glowing, colorful lights, bustling crowds, rhythmic music, and the rich aroma of street food 🍡✨. The contrast from the quiet hills was exhilarating. As soon as we entered the mela, Manu (Mandira) grabbed my hand tightly 🤝. With eyes full of excitement, she pulled me through the dense, bustling crowd. It felt as though she was leading me into her own little universe of carefree happiness 🌌. We wandered past the vibrant stalls, smiling, laughing, and entirely absorbed in each other's company 🥰. Amidst the lively chaos, we bought two matching flower pots 🪴 to commemorate the night. Then, in a quiet gesture, I picked out a simple but beautiful hair clip for her 🎀—a tiny gift carrying a thousand unspoken feelings. Under the glow of the mela lights, surrounded by the noise of the world but completely lost in our own, our first trip, first picnic, and first mela became a perfect, unforgettable chapter in our story 📖💖.
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
 
-<div class="footer">Only love belongs here</div>
+    <div class="tl-item right">
+      <div class="tl-content">
+        <div class="tl-date">23 May 2025</div>
+        <div class="tl-title">Our First Tea Date ☕</div>
+         <img class="tl-img" src="https://iili.io/BNPJOiB.png" alt="Temple Visit">
+        <div class="tl-desc">
+          The morning of May 23rd, 2025, began like any other, but it held the promise of something entirely new. The clock had just struck 7:00 AM, and the town was still slowly waking up...
+        </div>
+        <div class="full-story" style="display: none;">
+          The morning of May 23rd, 2025, began like any other, but it held the promise of something entirely new. The clock had just struck 7:00 AM, and the town was still slowly waking up. A gentle morning breeze swept through the Raghunathpur bus stand as we found a quiet corner in the waiting room. Before the heavy books and the daily rush of our tuition classes could consume us, this stolen pocket of time belonged entirely to us. We ordered tea, and the vendor handed it to us in traditional matir cups (earthen clay cups). I can still remember the rich, sweet aroma of the boiling tea mingling with the rustic, baked-earth scent of the clay. Holding the warm bhaar in our hands to chase away the slight morning chill, we sat close together. We didn’t even need grand conversations; the simple, quiet comfort of sharing that steaming tea in an empty waiting room was magic. It was our very first tea date, tucked away beautifully in the most ordinary of places. Eventually, the clock reminded us of our responsibilities, and we had to part ways for our different tuition batches, stepping out of our peaceful bubble and into the busy morning. But the lingering warmth of the tea and the anticipation of seeing each other again made the long study hours fly by.
+Days later, unable to resist reliving that simple happiness, we found ourselves back at the same bus stand waiting room for another quiet tea date. It felt just as special, as if time had paused again only for us. After finishing our tea, I started my bike and dropped her off at her tuition. It wasn’t anything grand, just a short ride through familiar roads, but with her sitting behind me, holding on, it felt like the journey itself had become a memory worth keeping forever.
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
 
-<script>
+        <div class="tl-item left">
+      <div class="tl-content">
+        <div class="tl-date">10 June 2025</div>
+        <div class="tl-title">Our First Temple Visit as a Couple</div>
+        <img class="tl-img" src="https://iili.io/BTg7XB1.png" alt="Temple Visit">
+        <div class="tl-desc">
+          ​It was the 10th of June, 2025, just before my birthday, when our paths converged at the peaceful grounds of the Moutorh Mata Kali Mandir...
+        </div>
+        <div class="full-story" style="display: none;">
+          It was the 10th of June, 2025, just before my birthday, when our paths converged at the peaceful grounds of the Moutorh Mata Kali Mandir. We hadn't traveled together; she journeyed from her home, and I from mine. But the moment we finally met at the temple steps, it felt as though our individual journeys had always been leading us right to each other. Before entering, we stopped to gather offerings, sharing a quiet, unspoken gesture of love. Instead of buying prasad for ourselves, I bought the sacred sweets for her, and she bought them for me—a tender exchange of care before we even approached the deity. As we crossed the threshold into the mandir, our hands found one another. We walked forward, reaching up to ring every single temple bell together—har ek ghanti ko sath main bajate huye. The chimes echoed through the sacred halls in perfect harmony, a beautiful melody carrying the sound of our shared devotion. Side by side, we knelt before the divine presence of Mata Kali. With bowed heads and full hearts, we sought her ashirwad, silently asking for her grace to guide us. That serene day was so much more than just a quiet prayer; it was our very first temple visit as a couple. It was a perfectly blessed beginning to the beautiful journey unfolding before us.
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
 
-function unlock(){
+    <div class="tl-item right">
+      <div class="tl-content">
+        <div class="tl-date">29 September 2025</div>
+        <div class="tl-title">Under the Saptami Sky: Our First Mela Adventure</div>
+        <img class="tl-img" src="https://iili.io/B5t65T7.png" alt="Saptami Mela Adventure">
+        <div class="tl-desc">
+          On September 29, 2025, the festive day of Durga Puja Saptami, we went on our very first mela adventure with our school friends. To keep it a secret from her family, I waited and sneaked into the car only after...
+        </div>
+        <div class="full-story" style="display: none;">
+          The afternoon of September 29, 2025, wasn't just any ordinary day—it was the vibrant day of Durga Puja Saptami, and it marked the beginning of our very first mela experience together. The whole plan started with a thrilling little secret. To make sure her family wouldn't find out, we had to be clever. When our common school friends brought the car around 2 PM, she got in first. I waited patiently down the road, and only after the car had safely passed her house did I jump in. The moment I sat beside her, the adventure truly began.<br><br>
+          Our first stop was Bhamoria. The mela was alive with festive energy, but in that crowded place, my world was just her. We spent the entire afternoon exploring the grounds, our fingers laced tightly together as we walked hand in hand through the bustling stalls. We stopped to take so many pictures, freezing those bright smiles and perfect moments in time. We shared spicy bhelpuri and sipped on cold drinks, enjoying the simple magic of being together. I bought her a beautiful pair of jhumkas that I knew would look stunning on her, and showing her incredibly pure heart, she bought a sweet gift for my mother.<br><br>
+          As the evening approached, we made our way to Nituria. The mela there had its own charm, and we continued our stroll, still refusing to let go of each other's hands. Suddenly, a light shower of rain began to fall. Instead of letting it ruin the fun, it gave us one of the most romantic moments of the day. We quickly ducked under the extended awning of a small shop to take shelter. Standing close together under that tin roof, watching the rain fall around us, was a quiet, intimate memory I will never forget.<br><br>
+          Once the rain cleared, our journey took us to Raghunathpur, where we stopped at Sudamrit to have dinner. Since it was Puja and she was strictly following a vegetarian diet that day, her options were limited. She ordered sweet fried rice and karai paneer. I know her so well—I knew exactly how much she usually eats and that she would never be able to finish a full plate by herself. So, I purposely only ordered a single egg roll for myself. Just as I expected, she couldn't finish her meal, and I happily ate her jhutha (leftovers). Sharing food like that just made me feel even closer to her.<br><br>
+          But as the night wore on and it was time to head back, the joyful energy slowly turned into a heavy, bittersweet quiet. The ride from Bhamoria back towards home was deeply emotional. She rested her head gently on my shoulder for the entire journey. I could feel how sad she was that the day was ending. The thought of going back to our separate homes, of being apart after such a perfect day, weighed heavily on both of us. It was a comfortable silence, but one filled with the ache of not wanting to say goodbye.<br><br>
+          Around 7 or 8 PM, we finally reached Moutorh. I dropped her off, and we shared a reluctant, heartfelt goodbye. As I watched her go, my heart was completely full. That day was a beautiful whirlwind of secrets, rain, shared food, and endless love—our very first mela, and a memory I will treasure forever.
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
 
-let password=document.getElementById("password").value;
 
-let card=document.getElementById("card");
+    <div class="tl-item left">
+      <div class="tl-content">
+        <div class="tl-date">29 Dec 2025</div>
+        <div class="tl-title">Our First Rasoi</div>
+        <img class="tl-img" src="https://iili.io/qQ9P7ov.png" alt="Our First Rasoi">
+        <div class="tl-desc">
+          The temple near my house is built by my family, and the priest there is my middle brother. One day, he told her to keep 16 Somvar fast...
+        </div>
+        <div class="full-story" style="display: none;">
+          The temple near my house is built by my family, and the priest there is my middle brother. One day, he told her to keep 16 Somvar fast and said, "If you complete it with faith, your wish will come true, and after that you should make kheer and offer it to God." I already knew what her wish was--she wanted to marry me. She started her vrat on 8th September and completed it on 22 December 2025, but that day she couldn't come to the temple, so everything felt a little incomplete. Then on 29 December, the 17th Monday, she finally came. What made that day even more special was my family--everyone already liked her as my future wife, and they treated her with so much warmth and happiness. No one said anything directly, but their behavior showed everything. The plan was always to offer kheer, but what happened next was something I never expected. Instead of making it in the temple, my brother brought her into our home kitchen to cook. That moment felt different… special. It felt like she already belonged to this house. I was sent to bring milk, and even that small thing felt important to me. She was cooking kheer, and I was just standing there watching her--no words, no drama, just a calm and real moment. After that, she offered the kheer to God in the temple and distributed it as prasad to everyone. Nothing was official that day, but for me, that was our first rasoi--unexpected, simple, and one of the most beautiful memories of my life. 💖
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
 
-if(password.trim()===""){
-document.getElementById("error").innerText="Enter password first";
-return;
-}
+    <div class="tl-item right">
+      <div class="tl-content">
+        <div class="tl-date">Present Day</div>
+        <div class="tl-title">Still Going Strong</div>
+        <div class="tl-desc">
+          Building our forever, one beautiful memory at a time. The best part of my timeline is you...
+        </div>
+        <div class="full-story" style="display: none;">
+          Building our forever, one beautiful memory at a time. The best part of my timeline is you. Every laugh, every late-night conversation, and every quiet moment shared makes me fall in love with you all over again. Here is to a lifetime of "us."
+        </div>
+        <div class="read-more-btn" onclick="openStoryModal(this)">Read More</div>
+      </div>
+    </div>
 
-if(password==="23092019"){
+  </section>
 
-card.classList.add("unlocking");
+  <section id="about" style="max-width:560px;margin:60px auto 0;padding:0 24px 20px;text-align:center;">
+    <h2 class="section-title" style="margin-top:0;"><span>About</span></h2>
+    <p style="font-size:18px;line-height:2;opacity:0.6;letter-spacing:0.4px;">
+      This is our little corner of the internet -- a vault built from moments, laughter, and love. Every photo here holds a story we never want to forget. Made with all the love in the world, for us. 🤍
+    </p>
 
-let text=document.createElement("div");
+    <div class="social-links">
+      <a href="https://www.instagram.com/somesh_0620?igsh=ZXVyeWNhc2x3Nzdk" target="_blank" class="social-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+      </a>
 
-text.className="vault-open";
+      <a href="https://www.facebook.com/share/1Du7jdB9J8/" target="_blank" class="social-btn" aria-label="Facebook">
+        <svg viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </a>
 
-text.innerText="Vault Unlocked ❤️";
+      <a href="https://wa.me/916295650199" target="_blank" class="social-btn" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24">
+          <path d="M12.031 0C5.394 0 0 5.394 0 12.031c0 2.115.549 4.167 1.594 5.975L.114 23.411l5.542-1.453a12.008 12.008 0 006.375 1.808h.005c6.634 0 12.028-5.394 12.028-12.031S18.665 0 12.031 0zm0 21.737c-1.785 0-3.535-.48-5.07-1.39l-.364-.216-3.768.988.995-3.673-.237-.377A10.027 10.027 0 012.031 12.03c0-5.522 4.494-10.016 10.02-10.016 5.513 0 10.007 4.495 10.007 10.017s-4.494 10.017-10.027 10.017zm5.503-7.518c-.302-.151-1.786-.882-2.063-.983-.277-.101-.479-.151-.68.151-.202.302-.781.983-.957 1.185-.176.201-.353.226-.655.075-1.282-.646-2.458-1.458-3.414-2.493-.736-.796-1.19-1.745-1.32-2.026-.13-.281-.014-.433.137-.584.135-.136.302-.352.453-.529.151-.176.202-.302.302-.503.1-.202.05-.378-.025-.529-.076-.151-.68-1.642-.931-2.25-.246-.593-.495-.512-.68-.521-.176-.008-.378-.01-.58-.01-.201 0-.528.076-.805.378-.277.302-1.057 1.033-1.057 2.518s1.082 2.919 1.233 3.121c.151.202 2.126 3.245 5.148 4.549 2.058.889 2.872.934 3.842.784.821-.128 2.568-1.049 2.921-2.063.352-1.014.352-1.882.247-2.063-.106-.181-.383-.282-.685-.433z"/>
+        </svg>
+      </a>
 
-document.body.appendChild(text);
+      <a href="/cdn-cgi/l/email-protection#66040713140f07080f0b03150e5f535126010b070f0a4805090b" class="social-btn" aria-label="Email">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
+    </div>
 
-setTimeout(function(){
+  </section>
 
-window.location.href="vault.html";
+  <footer class="footer">Made with love · ANIDIRA 🤍</footer>
 
-},2200);
+  <div class="modal" id="galleryModal">
+    <div class="modal-content">
+      <div class="modal-image"><img id="galleryImg" alt="Memory"></div>
+      <div class="modal-details">
+        <span class="close" onclick="closeGalleryModal()">&#x2715;</span>
+        <h2 id="galleryTitle"></h2>
+        <p class="modal-date" id="galleryDate"></p>
+        <p class="modal-desc" id="galleryDesc"></p>
+        <button class="dl-btn" id="downloadBtn">Download</button>
+      </div>
+    </div>
+  </div>
 
-}
+  <div class="modal" id="storyModal">
+    <div class="modal-content story-modal-content">
+      <span class="close" onclick="closeStoryModal()">&#x2715;</span>
+      <h2 id="storyModalTitle"></h2>
+      <p class="modal-date" id="storyModalDate"></p>
+      <img id="storyModalImg" src="" alt="Story Image" style="display: none;">
+      <div class="story-body" id="storyModalBody"></div>
+    </div>
+  </div>
 
-else{
+  <nav class="sidenav" id="sidenav" aria-label="Site navigation">
+    <div class="sn-bar"  aria-hidden="true"></div>
+    <div class="sn-glow" aria-hidden="true"></div>
 
-document.getElementById("error").innerText="Wrong password";
+    <button class="sn-item active" data-target="home"     aria-label="Home"     aria-current="page">
+      <span class="material-symbols-outlined">home</span>
+      <span class="sn-label">Home</span>
+    </button>
+    <button class="sn-item"        data-target="memories" aria-label="Memories">
+      <span class="material-symbols-outlined">favorite</span>
+      <span class="sn-label">Memory</span>
+    </button>
+    <button class="sn-item"        data-target="timeline" aria-label="Timeline">
+      <span class="material-symbols-outlined">timeline</span>
+      <span class="sn-label">Timeline</span>
+    </button>
+    <button class="sn-item"        data-target="about"    aria-label="About">
+      <span class="material-symbols-outlined">info</span>
+      <span class="sn-label">About</span>
+    </button>
+  </nav>
 
-}
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ── COUNTER ── */
+    function updateCounter() {
+      const start = new Date(2019, 8, 23);
+      const now   = new Date();
+      let y = now.getFullYear() - start.getFullYear();
+      let m = now.getMonth()    - start.getMonth();
+      let d = now.getDate()     - start.getDate();
+      if (d < 0) { m--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+      if (m < 0) { y--; m += 12; }
+      document.getElementById("relationshipCounter").textContent =
+        `❤️  Together for ${y} Years, ${m} Months & ${d} Days`;
+    }
+    updateCounter();
+    setInterval(updateCounter, 60000);
 
-}
+    /* ── SLIDER ── */
+    const slides   = document.querySelectorAll(".slide");
+    const dotsWrap = document.getElementById("dots");
+    let slideIdx   = 0;
+    let autoTimer  = null;
 
-document.getElementById("password").addEventListener("keypress",function(e){
+    slides.forEach((_, i) => {
+      const d = document.createElement("div");
+      d.className = "dot" + (i === 0 ? " active" : "");
+      d.addEventListener("click", () => goSlide(i, true));
+      dotsWrap.appendChild(d);
+    });
 
-if(e.key==="Enter"){
-unlock();
-}
+    function goSlide(i, reset = false) {
+      slides[slideIdx].classList.remove("active");
+      dotsWrap.children[slideIdx].classList.remove("active");
+      slideIdx = (i + slides.length) % slides.length;
+      slides[slideIdx].classList.add("active");
+      dotsWrap.children[slideIdx].classList.add("active");
+      if (reset) { clearInterval(autoTimer); autoTimer = setInterval(() => goSlide(slideIdx + 1), 5000); }
+    }
 
-});
+    autoTimer = setInterval(() => goSlide(slideIdx + 1), 5000);
 
-</script>
+    let tx = 0;
+    document.getElementById("slider").addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+    document.getElementById("slider").addEventListener("touchend",   e => {
+      const d = tx - e.changedTouches[0].clientX;
+      if (Math.abs(d) > 50) goSlide(d > 0 ? slideIdx + 1 : slideIdx - 1, true);
+    });
 
+    /* ── GALLERY ── */
+    const images = [
+    
+    { 
+      src: "https://iili.io/qyQaa8Q.jpg", 
+      title: "⌛Stolen Time and Hidden Letters 🌿",  
+      date: "A Special Moment 🤍", 
+      desc: "Amidst the rush of her aarti duties and receiving her prize at the CCTC August 15th program, he managed to steal her away for the perfect little escape. They sneaked off to a nearby restaurant just to share a quiet moment away from the crowds. The sweetest part was her challenging him to find his name hidden in her beautiful mehndi. It just goes to show—sometimes the best memories are the stolen ones. ❤️" },
+    
+    { 
+      src: "https://iili.io/qyC59Ns.jpg", 
+      title: "⌛Stolen Time and Hidden Letters 🌿",  
+      date: "A Special Moment 🤍", 
+      desc: "Amidst the rush of her aarti duties and receiving her prize at the CCTC August 15th program, he managed to steal her away for the perfect little escape. They sneaked off to a nearby restaurant just to share a quiet moment away from the crowds. The sweetest part was her challenging him to find his name hidden in her beautiful mehndi. It just goes to show—sometimes the best memories are the stolen ones. ❤️" },
+      
+    { 
+      src: "https://iili.io/qZwSXOF.jpg", 
+      title: "60 KM For You 🛣️", 
+      date: "Exam Day Escape 🤍", 
+      desc: "Exams were over, but the day had only just begun. I crossed 60km just to be with her -- and together we slipped away to Panchet DVC Park, where the world felt quiet and nothing else mattered." },
+      
+    { 
+      src: "https://iili.io/qZjXvR4.jpg", 
+      title: "Between Ayodhya and Home 🌙🚌",  
+      date: "A Night to Remember ✨", 
+      desc: "On our way back from the Ayodhya picnic, the bus was filled with laughter, tired faces, and quiet moments. Somewhere between the noise and the silence, we captured this photo -- a simple memory that now feels so special and unforgettable." 
+    },
+    
+    
+    { 
+      src: "https://iili.io/BVos4b2.png", 
+      title: "Holding Hands in the Crowd 🌙🚌",  
+      date: "A Night to Remember ✨", 
+      desc: "As the day slowly came to an end and we began our journey back from Ayodhya Hills, the night brought one more beautiful surprise. On 24th December 2023, our bus stopped at Purulia to visit the vibrant Raas Mela. The entire place was glowing with colorful lights, crowded with people, and filled with laughter, music, and the aroma of street food. As soon as we entered the mela, she held my hand tightly and, with excitement in her eyes, pulled me along through the bustling crowd. It felt like she was leading me into her own little world—one full of joy and carefree happiness. We walked through the stalls, smiling, laughing, and enjoying every moment together. Among all the colorful items, we bought two matching flower pots, a small but meaningful memory of that night. And then, quietly, I picked a simple yet beautiful hair clip for her—a tiny gift, but one filled with unspoken feelings. Under the glowing lights of the mela, surrounded by noise yet lost in our own world, that night became just as special as the day—another memory added to our story, one we would never forget." 
+    },
+    
+    
+    { 
+      src: "https://iili.io/BV59WbV.png", 
+      title: "A Stolen Moment at Ayodhya Hills ", 
+      date: "24 December 2023", 
+      desc: "The day started like any other at Chelyama Computer Training Center, but 24th December 2023 turned into one of the most memorable days of our lives. Our computer training center had organized a picnic to the beautiful Ayodhya Hills, and the excitement among all of us was clearly visible. We boarded the bus with our classmates, surrounded by laughter, music, and endless chatter, yet somehow, in the middle of all that noise, we found our own quiet space—sitting together. The long journey didn’t feel tiring at all; instead, every moment felt special just because we were side by side. After hours of travel, we finally reached Lower Dam Ayodhya Hills, where the serene water, gentle breeze, and green hills created a peaceful and breathtaking view. As soon as we arrived, the teachers began assigning tasks to everyone—most of the girls were asked to chop vegetables while others prepared for cooking. But in that moment, I didn’t want to lose her in the crowd. So quietly, I took her away from the group, and we walked together towards the dam. Away from the noise and responsibilities, it felt like the world had slowed down just for us. The calm surroundings, the soft wind, and the silence between us made everything feel magical. And there, in that quiet corner, we captured a simple couple photo—but it wasn’t just a photo; it was a memory, a moment we stole from time itself, something we would carry with us forever.." },
+
+
+   { 
+      src: "https://iili.io/qyxrg94.jpg", 
+      title: "60 KM For You 🛣️", 
+      date: "Exam Day Escape 🤍", 
+      desc: "Exams were over, but the day had only just begun. I crossed 60km just to be with her -- and together we slipped away to Panchet DVC Park, where the world felt quiet and nothing else mattered." },
+      
+      {
+          src: "https://iili.io/qyIpehF.jpg",
+          title: "🛣️ Post-Exam Smiles ❤️",
+          date: "The post-exam ride home and a stolen selfie. ✨",
+          desc: "The best part of exam day? Getting to be the one who picks her up when it’s all over. We took this selfie on the road back home, capturing that perfect moment when all the exam stress is finally gone. Just the open road and happy faces! 📸🛣️",
+      },
+      
+      {
+          src: "https://iili.io/qyuE3hv.jpg",
+          title: "🎉 Post-Exam Celebrations & Wedding Lights ✨",
+          date: "Leaving the exams behind for wedding lights, friends, and her in that beautiful green saree. ✨📸",
+          desc: "With the heavy weight of our calculus and statistics exams finally lifted, the night was entirely about celebration. Surrounded by all our friends at the Moutorh Kali Mandir , the wedding festivities were in full swing. But even in that crowded, lively room, she completely stole the show in a stunning  saree. Amidst the music and laughter, we paused to capture this glowing selfie—the perfect end to the exam season. 💚✨",
+      },
+      
+      { 
+      src: "https://iili.io/qyRq7nf.jpg", 
+      title: "Waiting for Food, Capturing You 📸",  
+      date: "The best part of waiting for our order was taking endless photos with her. 📸", 
+      desc: "I  decided to show up at her college completely out of the blue just to surprise her, and her reaction was everything. We headed straight to the college canteen, and the entire time we waited for our order to arrive, we just sat there taking endless selfies. Honestly, the food was great, but those fun, silly moments sitting across from her at that table were definitely the best part of the day. ✨📸"
+    },
+
+    { 
+      src: "https://iili.io/qyRqC4p.jpg", 
+      title: "Waiting for Food, Capturing You 📸",  
+      date: "The best part of waiting for our order was taking endless photos with her. 📸", 
+      desc: "I  decided to show up at her college completely out of the blue just to surprise her, and her reaction was everything. We headed straight to the college canteen, and the entire time we waited for our order to arrive, we just sat there taking endless selfies. Honestly, the food was great, but those fun, silly moments sitting across from her at that table were definitely the best part of the day. ✨📸"
+    },
+
+    { 
+      src: "https://iili.io/qyLzGzx.png", 
+      title: "The Red Hoodie Reunion at Ranjandih ✨",  
+      date: "Two different exam centers, a 50km ride, and the perfect couple-hoodie reunion by the lake. ✨", 
+      desc: " Our exams might have ended at the exact same time, but we were 50 kilometers apart—my center was at Purulia Nistarini College, and hers was at Kashipur M M College. After her exam, she went to Ranjandih Dam with her friends. While everyone else was busy enjoying the tourist sights, she spent her time just looking down the road, waiting for me to arrive. I rode those 50 kilometers as fast as I could. When I finally reached her, we sat down in our matching couple hoodies on this bench by the lake. Just looking out at the water together made every single kilometer entirely worth it. A perfect, peaceful end to a long day. ❤️🌅"
+    }, 
+    { 
+      src: "https://iili.io/qyLth21.png", 
+      title: "The Red Hoodie Reunion at Ranjandih ✨",  
+      date: "Two different exam centers, a 50km ride, and the perfect couple-hoodie reunion by the lake. ✨", 
+      desc: " Our exams might have ended at the exact same time, but we were 50 kilometers apart—my center was at Purulia Nistarini College, and hers was at Kashipur M M College. After her exam, she went to Ranjandih Dam with her friends. While everyone else was busy enjoying the tourist sights, she spent her time just looking down the road, waiting for me to arrive. I rode those 50 kilometers as fast as I could. When I finally reached her, we sat down in our matching couple hoodies on this bench by the lake. Just looking out at the water together made every single kilometer entirely worth it. A perfect, peaceful end to a long day. ❤️🌅"
+    },
+    
+    { 
+      src: "https://iili.io/BT8Ia6l.png", 
+      title: "Echoes of Devotion: Our Sacred Beginning",  
+      date: "Our First Tample Visiting as Couple 📸", 
+      desc: " On June 10, 2025, just before my birthday, we met at the Moutorh Mata Kali Mandir. Though we arrived separately from our own homes, our visit began with a sweet, unspoken bond: buying prasad for one another rather than ourselves.​As we stepped inside, we reached up to ring every single temple bell together—har ek ghanti ko sath main bajate huye. Kneeling side by side, we bowed our heads to take ashirwad from Mata Kali. In that peaceful moment, we shared our very first temple visit as a couple, a perfectly blessed beginning to our journey together. ✨📸"
+    }, 
+    
+    { 
+      src: "https://iili.io/BTg7XB1.png", 
+      title: "Echoes of Devotion: Our Sacred Beginning",  
+      date: "Our First Tample Visiting as Couple 📸", 
+      desc: " On June 10, 2025, just before my birthday, we met at the Moutorh Mata Kali Mandir. Though we arrived separately from our own homes, our visit began with a sweet, unspoken bond: buying prasad for one another rather than ourselves.As we stepped inside, we reached up to ring every single temple bell together—har ek ghanti ko sath main bajate huye. Kneeling side by side, we bowed our heads to take ashirwad from Mata Kali. In that peaceful moment, we shared our very first temple visit as a couple, a perfectly blessed beginning to our journey together. ✨📸"
+    },
+    
+    { 
+      src: "https://iili.io/BT4gGtf.jpg", 
+      title: "Echoes of Devotion: Our Sacred Beginning",  
+      date: "Our First Tample Visiting as Couple 📸", 
+      desc: " On June 10, 2025, just before my birthday, we met at the Moutorh Mata Kali Mandir. Though we arrived separately from our own homes, our visit began with a sweet, unspoken bond: buying prasad for one another rather than ourselves.​As we stepped inside, we reached up to ring every single temple bell together—har ek ghanti ko sath main bajate huye. Kneeling side by side, we bowed our heads to take ashirwad from Mata Kali. In that peaceful moment, we shared our very first temple visit as a couple, a perfectly blessed beginning to our journey together. ✨📸"
+    },
+    
+    { 
+      src: "https://iili.io/BTr4XSt.png", 
+      title: "Woven with Love",  
+      date: "Tied Together with Little Hearts 📿♡ ", 
+      desc: "For days, I'd been patiently and lovingly weaving a simple black cord, carefully adding tiny, heart-shaped red beads to its pattern. When I finally placed it on her wrist, her joy was all the reward I needed. To capture the moment, we held hands tightly across the patterned red table, and I snapped this photo. More than just a simple black woven bracelet, it represents hours of care, and now, it sits beautifully on her arm, a permanent reminder of that quiet, perfect hand-in-hand happiness.😘📸"
+    },
+    
+    
+    { 
+      src: "https://iili.io/BTgkUJf.png", 
+      title: "Echoes of Devotion: Our Sacred Beginning",  
+      date: "Our First Tample Visiting as Couple 📸", 
+      desc: " On June 10, 2025, just before my birthday, we met at the Moutorh Mata Kali Mandir. Though we arrived separately from our own homes, our visit began with a sweet, unspoken bond: buying prasad for one another rather than ourselves.​As we stepped inside, we reached up to ring every single temple bell together—har ek ghanti ko sath main bajate huye. Kneeling side by side, we bowed our heads to take ashirwad from Mata Kali. In that peaceful moment, we shared our very first temple visit as a couple, a perfectly blessed beginning to our journey together. ✨📸"
+    },
+    
+    { 
+      src: "https://iili.io/BT6Ra19.jpg", 
+      title: "Campus Memories in Matching Hues",  
+      date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+      desc: " One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. Every snapshot captured not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+    },
+    
+    { 
+      src: "https://iili.io/BT6850P.jpg", 
+      title: "Campus Memories in Matching Hues",  
+      date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+      desc: " One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. Every snapshot captured not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+    },
+    
+    
+    { 
+      src: "https://iili.io/BNcsFVe.png", 
+      title: "How We get Caught Red Handed ",  
+      date: "Caught Red-Lipped💖", 
+      desc: " It all started when she came to visit our family temple. My middle brother, who is the temple priest, was in the middle of his duties and told her to go grab some সরিষা (mustard seeds) from my shop nearby.When she walked up to my counter, I was completely spellbound. She looked stunning, and I immediately noticed her lipstick. We made eye contact, and honestly, I just lost all sense of my surroundings. Without even thinking, my hand moved on its own—I reached over and softly pinched her lips. It was completely automatic; I just couldn't resist her.Right at that exact second, my brother appeared at the shop entrance. He caught us red-handed. He stopped dead in his tracks, gave a little shocked jump, and then his face lit up with absolute joy.Instead of getting mad, he just grinned and yelled, বৌদি, কেমন আছো?.The best part? He definitely already suspected we were secretly dating, and we just confirmed his theories in the most obvious way possible.."
+    },
+    
+    
+     { 
+      src: "https://iili.io/BNrltMN.png", 
+      title: "Height and Hopes on the Boundary 🌿📏",  
+      date: " Height and Hopes on the Boundary 🌿📏💖", 
+      desc: " It was the perfect afternoon for a playful moment. While we were walking along the road near the dam, Anidira was balancing on the low concrete boundary, enjoying the extra few inches of height it gave her. Since I often used to gently tease her about being shorter, she took the chance to feel tall, beaming as she matched my height and even used her other hand to proudly mark how tall she felt in that spot. I simply walked beside her on the road, holding her hand while she balanced, and we both couldn't stop smiling. It was a simple, happy moment, filled with laughter and the warmth of being together under the clear blue sky, turning a casual walk into another beautiful memory."
+    },
+    
+    
+    { 
+      src: "https://iili.io/BNvNFxj.png", 
+      title: "A Stolen Kiss on the Upper Dam 💋🛣️",  
+      date: "A Stolen Kiss on the Upper Dam 💋🛣️👫💖", 
+      desc: " There was another unforgettable moment from that beautiful day, quietly tucked away amidst the adventure. While exploring the Upper Dam, we were casually walking down the scenic road with a few of our friends 🚶‍♂️🚶‍♀️. As we strolled along, enjoying the breeze, our friends unknowingly walked a little bit ahead, leaving the two of us trailing slightly behind 🤫. Seeing the perfect, fleeting opportunity, I quickly leaned in and stole a sweet, sudden kiss on Manu's cheek 😘. She was completely caught off guard! Her eyes went wide, and she stood there absolutely shocked and stunned by the surprise 😳✨. It was a fast, thrilling, and completely unexpected little secret that added an extra spark of magic to our first trip together ❤️.."
+    },
+    
+    { 
+      src: "https://iili.io/BT68c5g.png", 
+      title: "Campus Memories in Matching Hues",  
+      date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+      desc: " One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. Every snapshot captured not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+    },
+    
+    { 
+      src: "https://iili.io/BT68RqB.jpg", 
+      title: "Campus Memories in Matching Hues",  
+      date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+      desc: " One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. Every snapshot captured not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+    },
+    
+    
+    { 
+      src: "https://iili.io/B5aRj8x.jpg", 
+      title: "Campus Memories in Matching Hues",  
+      date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+      desc: " One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. Every snapshot captured not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+    },
+    
+    { 
+  src: "https://iili.io/B5sf9Db.png", 
+  title: "Our First Pandal Hopping: A Saptami to Remember",  
+  date: "September 29, 2025 ✨🎡🌧️", 
+  desc: "On September 29, 2025, the festive day of Durga Puja Saptami, we went on our very first mela adventure with our school friends. To keep it a secret from her family, I waited and sneaked into the car only after it had passed her house! Our journey started around 2 PM in Bhamoria. We spent the afternoon holding hands, exploring the mela, eating bhelpuri, and sipping cold drinks. I bought her a beautiful pair of jhumkas, and with her caring heart, she bought a gift for my mother. In Nituria, a sudden light shower caught us by surprise, and we shared a cozy, romantic moment sheltering together under a shop's awning. Later in Raghunathpur, we stopped at Sudamrit for dinner. Since she was strictly eating vegetarian that day, she got sweet fried rice and karai paneer. I knew exactly how much she could eat, so I just ordered an egg roll for myself and happily finished her leftovers! The ride back was beautifully bittersweet. The whole way home, she rested her head gently on my shoulder, feeling the quiet sadness of our perfect day coming to an end. I dropped her off at Moutorh around 8 PM, leaving us with the unforgettable memories of our very first mela together."
+},
+
+    
+    { 
+  src: "https://iili.io/B5g9OLG.png", 
+  title: "Saree Elegance & A Caring Heart",  
+  date: "September 11, 2025 🥻🍃", 
+  desc: "On September 11, 2025, her college department hosted a combined Freshers and Farewell event. The moment I found out she would be wearing a saree, I knew there was no way I could stay home—I simply had to go see her! I went to her college, completely mesmerized by how stunning she looked, and we captured this photo. But that day showed me more than just her elegance; it showed the immense depth of her care. My elder brother's wife was pregnant at the time, and she thoughtfully brought along some *Kulekhara* (কুলা খাড়া) leaves for her, a traditional plant known to boost blood health. After that incredibly sweet and loving gesture toward my family, we headed to the college canteen and shared a lovely meal together. It was a perfect day filled with admiration, good food, and her pure, beautiful heart."
+},
+
+    
+    { 
+  src: "https://iili.io/B58FZog.png", 
+  title: "A Tender Gesture of Care",  
+  date: "August 8, 2025 👣❤️", 
+  desc: "On August 8, 2025, I visited her at her college, carrying a simple request and a nail clipper in my bag. I asked if she would cut my toenails. Without hesitation, she gently rested my foot on her lap. With so much care and quiet love, she carefully clipped my nails. It was a small, intimate moment that spoke volumes about her affection, making an everyday task feel incredibly special and deeply cherished."
+},
+
+
+
+    
+    { 
+      src: "https://iili.io/BT6hPGn.jpg", 
+      title: "Campus Memories in Matching Hues",  
+      date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+      desc: " One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. Every snapshot captured not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+    },
+    
+    { 
+      src: "https://iili.io/Bl1Bwvf.jpg", 
+      title: "A Ride Between Love and Reality",  
+      date: "“Love vs Reality: Our Silent Promise 📸👫💖", 
+      desc: " After she told her family about us, things didn’t go the way we had hoped. Her mother said no—her reason was simple and real: I didn’t have a job. For the first time, our love faced something bigger than school, bigger than emotions—reality.But even after that, she chose to meet me.That day, we met at Moutorh Dam. There were no long conversations, no dramatic words—just a quiet understanding between us. I took her on a small bike ride, and in that silence, everything was felt. The wind, the empty road, the sunset… it all carried our emotions.She didn’t say much, but her presence said everything—that she still trusted me, still believed in us. And I, without saying it out loud, made a promise to myself that one day I would become someone worthy enough, someone her family could accept.That ride wasn’t just a moment—it was a silent promise between two people choosing each other, even when the world wasn’t on their side. ❤️."
+    },
+    
+    { 
+      src: "https://iili.io/Bl1C3jp.png", 
+      title: "A Ride Between Love and Reality",  
+      date: "“Love vs Reality: Our Silent Promise 📸👫💖", 
+      desc: " After she told her family about us, things didn’t go the way we had hoped. Her mother said no—her reason was simple and real: I didn’t have a job. For the first time, our love faced something bigger than school, bigger than emotions—reality.But even after that, she chose to meet me.That day, we met at Moutorh Dam. There were no long conversations, no dramatic words—just a quiet understanding between us. I took her on a small bike ride, and in that silence, everything was felt. The wind, the empty road, the sunset… it all carried our emotions.She didn’t say much, but her presence said everything—that she still trusted me, still believed in us. And I, without saying it out loud, made a promise to myself that one day I would become someone worthy enough, someone her family could accept.That ride wasn’t just a moment—it was a silent promise between two people choosing each other, even when the world wasn’t on their side. ❤️."
+    },
+    
+    { 
+  src: "https://iili.io/B5aHwW7.jpg", 
+  title: "Campus Memories in Matching Hues",  
+  date: "Twinning on Campus: Our Mini Photoshoot 📸👫💖", 
+  desc: "One beautiful day, we decided to turn the familiar grounds of her college into the backdrop for our very own couple's photoshoot. We carefully picked out matching colored clothes, stepping onto the campus not just as visitors, but as a perfect pair. We spent hours exploring the pathways and courtyards, taking countless pictures together in every beautiful spot we could find. To make the day even more unforgettable, I scooped her up in my arms and carried her all the way from the second floor up to the third. Amidst the laughter and the thrill of that sweet moment, we captured this exact picture. Every snapshot showcased not just the coordinated colors we wore, but the effortless joy of being together, transforming her everyday college scenery into a timeless gallery of our shared moments."
+},
+
+
+
+    { 
+      src: "https://iili.io/qyRqIyX.jpg", 
+      title: "Waiting for Food, Capturing You 📸",  
+      date: "The best part of waiting for our order was taking endless photos with her. 📸", 
+      desc: "I  decided to show up at her college completely out of the blue just to surprise her, and her reaction was everything. We headed straight to the college canteen, and the entire time we waited for our order to arrive, we just sat there taking endless selfies. Honestly, the food was great, but those fun, silly moments sitting across from her at that table were definitely the best part of the day. ✨📸"
+    }, 
+
+    
+    ];
+
+    const galleryEl = document.getElementById("gallery");
+    images.forEach((item, i) => {
+      const div = document.createElement("div");
+      div.className = "box";
+      div.innerHTML = `<img src="${item.src}" loading="lazy" alt="${item.title}">
+                       <div class="photo-title">${item.title}</div>`;
+      div.addEventListener("click", () => openGalleryModal(i));
+      galleryEl.appendChild(div);
+    });
+
+    /* ── GALLERY MODAL LOGIC ── */
+    const galleryModal = document.getElementById("galleryModal");
+    let currentSrc = "";
+
+    function openGalleryModal(i) {
+      const item = images[i]; currentSrc = item.src;
+      document.getElementById("galleryImg").src = currentSrc; 
+      document.getElementById("galleryTitle").textContent = item.title;
+      document.getElementById("galleryDate").textContent = item.date; 
+      document.getElementById("galleryDesc").textContent = item.desc;
+      galleryModal.classList.add("open"); 
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGalleryModal() { 
+      galleryModal.classList.remove("open"); 
+      document.body.style.overflow = ""; 
+    }
+
+    /* ── NEW STORY MODAL LOGIC ── */
+    const storyModal = document.getElementById("storyModal");
+
+    function openStoryModal(btn) {
+      const parent = btn.closest('.tl-content');
+      
+      const title = parent.querySelector('.tl-title').textContent;
+      const date = parent.querySelector('.tl-date').textContent;
+      const fullText = parent.querySelector('.full-story').innerHTML;
+      const imgEl = parent.querySelector('.tl-img');
+
+      document.getElementById('storyModalTitle').textContent = title;
+      document.getElementById('storyModalDate').textContent = date;
+      document.getElementById('storyModalBody').innerHTML = fullText;
+
+      const modalImg = document.getElementById('storyModalImg');
+      if (imgEl) {
+        modalImg.src = imgEl.src;
+        modalImg.style.display = 'block';
+      } else {
+        modalImg.style.display = 'none';
+        modalImg.src = '';
+      }
+
+      storyModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeStoryModal() {
+      storyModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* Close Modals on background click or Escape key */
+    window.addEventListener("click", e => { 
+      if (e.target === galleryModal) closeGalleryModal(); 
+      if (e.target === storyModal) closeStoryModal();
+    });
+    document.addEventListener("keydown", e => { 
+      if (e.key === "Escape") { closeGalleryModal(); closeStoryModal(); }
+    });
+
+    /* ── DOWNLOAD ── */
+    document.getElementById("downloadBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("downloadBtn");
+      btn.textContent = "Downloading…"; btn.disabled = true;
+      try {
+        const res  = await fetch(currentSrc, { mode: "cors" });
+        if (!res.ok) throw new Error();
+        const blob = await res.blob();
+        const url  = URL.createObjectURL(blob);
+        const a    = Object.assign(document.createElement("a"), { href: url, download: "LoveVault_Memory.jpg" });
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        btn.textContent = "Downloaded ✓";
+      } catch {
+        window.open(currentSrc, "_blank");
+        btn.textContent = "Opened in new tab";
+      }
+      setTimeout(() => { btn.textContent = "Download"; btn.disabled = false; }, 2500);
+    });
+
+    /* ════════════════════════════════
+       SIDE / BOTTOM NAV LOGIC
+    ════════════════════════════════ */
+    const sidenav = document.getElementById("sidenav");
+    const snItems = document.querySelectorAll(".sn-item");
+
+    function updateIndicator(el) {
+      if (!el) return;
+      const pRect = sidenav.getBoundingClientRect();
+      const eRect = el.getBoundingClientRect();
+      sidenav.style.setProperty('--x',      `${(eRect.left - pRect.left) + eRect.width  / 2}px`);
+      sidenav.style.setProperty('--y',      `${(eRect.top  - pRect.top)  + eRect.height / 2}px`);
+      sidenav.style.setProperty('--item-w', `${eRect.width}px`);
+      sidenav.style.setProperty('--item-h', `${eRect.height}px`);
+    }
+
+    snItems.forEach(item => {
+      item.addEventListener("click", () => {
+        snItems.forEach(i => { i.classList.remove("active"); i.removeAttribute("aria-current"); });
+        item.classList.add("active");
+        item.setAttribute("aria-current", "page");
+        updateIndicator(item);
+
+        const target = document.getElementById(item.dataset.target);
+        if (target) {
+          const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({ top: offsetTop, behavior: "smooth" });
+        }
+      });
+    });
+
+    function goHome() {
+      const homeButton = document.querySelector('.sn-item[data-target="home"]');
+      if (homeButton) homeButton.click();
+    }
+
+    /* debounced resize */
+    let rTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(rTimer);
+      rTimer = setTimeout(() => updateIndicator(sidenav.querySelector(".sn-item.active")), 80);
+    });
+
+    /* init after full layout/fonts load */
+    window.addEventListener("load", () => {
+      const first = sidenav.querySelector(".sn-item.active");
+      updateIndicator(first);
+    });
+
+    /* ════════════════════════════════════════
+       LOGIN & SESSION SYSTEM
+    ════════════════════════════════════════ */
+    const CORRECT_PIN   = "2309";   // ← Change this to your PIN
+    const SESSION_MS    = 10 * 60 * 1000; // 10 minutes
+    const WARNING_SECS  = 10;             // warn 05s before logout
+
+    let pinInput        = "";
+    let sessionTimer    = null;
+    let sessionEnd      = 0;
+    let timerInterval   = null;
+    let warningInterval = null;
+    let warningActive   = false;
+
+    /* ── PIN PAD ── */
+    function pinPress(digit) {
+      if (pinInput.length >= 4) return;
+      pinInput += digit;
+      updateDots();
+      if (pinInput.length === 4) {
+        setTimeout(checkPin, 120);
+      }
+    }
+
+    function pinDel() {
+      pinInput = pinInput.slice(0, -1);
+      updateDots();
+      hideError();
+    }
+
+    function updateDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById("dot" + i);
+        dot.classList.toggle("filled", i < pinInput.length);
+      }
+    }
+
+    function checkPin() {
+      if (pinInput === CORRECT_PIN) {
+        unlockVault();
+      } else {
+        showError();
+        const dots = document.getElementById("pinDots");
+        dots.classList.add("shake");
+        setTimeout(() => dots.classList.remove("shake"), 500);
+        pinInput = "";
+        updateDots();
+      }
+    }
+
+    function showError() {
+      const el = document.getElementById("loginError");
+      el.classList.add("show");
+    }
+
+    function hideError() {
+      const el = document.getElementById("loginError");
+      el.classList.remove("show");
+    }
+
+    /* Keyboard support for PIN */
+    document.addEventListener("keydown", e => {
+      const loginVisible = !document.getElementById("loginScreen").classList.contains("hidden");
+      if (!loginVisible) return;
+      if (e.key >= "0" && e.key <= "9") pinPress(e.key);
+      if (e.key === "Backspace") pinDel();
+    });
+
+    /* ── UNLOCK & SESSION START ── */
+    function unlockVault() {
+      const screen = document.getElementById("loginScreen");
+      screen.classList.add("hidden");
+      setTimeout(() => { screen.style.display = "none"; }, 650);
+
+      const timerBadge = document.getElementById("sessionTimer");
+      timerBadge.style.display = "flex";
+
+      startSession();
+    }
+
+    function startSession() {
+      sessionEnd = Date.now() + SESSION_MS;
+      warningActive = false;
+
+      clearInterval(timerInterval);
+      clearInterval(warningInterval);
+      document.getElementById("sessionWarning").classList.remove("show");
+
+      timerInterval = setInterval(tickSession, 1000);
+      tickSession();
+    }
+
+    function tickSession() {
+      const remaining = Math.max(0, sessionEnd - Date.now());
+      const mins = Math.floor(remaining / 60000);
+      const secs = Math.floor((remaining % 60000) / 1000);
+      const display = `${String(mins).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+
+      document.getElementById("timerDisplay").textContent = display;
+
+      const badge = document.getElementById("sessionTimer");
+      if (remaining <= 60000) {
+        badge.classList.add("urgent");
+      } else {
+        badge.classList.remove("urgent");
+      }
+
+      /* Show warning at WARNING_SECS remaining */
+      if (remaining <= WARNING_SECS * 1000 && !warningActive) {
+        warningActive = true;
+        showWarning(remaining);
+      }
+
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        clearInterval(warningInterval);
+        logoutNow();
+      }
+    }
+
+    /* ── WARNING OVERLAY ── */
+    function showWarning(remainingMs) {
+      const overlay = document.getElementById("sessionWarning");
+      overlay.classList.add("show");
+
+      let countdown = Math.ceil(remainingMs / 1000);
+      document.getElementById("warningCountdown").textContent = countdown;
+
+      clearInterval(warningInterval);
+      warningInterval = setInterval(() => {
+        countdown--;
+        document.getElementById("warningCountdown").textContent = Math.max(0, countdown);
+        if (countdown <= 0) {
+          clearInterval(warningInterval);
+        }
+      }, 1000);
+    }
+
+    function extendSession() {
+      document.getElementById("sessionWarning").classList.remove("show");
+      clearInterval(warningInterval);
+      startSession();
+    }
+
+    /* ── LOGOUT ── */
+    function logoutNow() {
+      clearInterval(timerInterval);
+      clearInterval(warningInterval);
+
+      document.getElementById("sessionWarning").classList.remove("show");
+      document.getElementById("sessionTimer").style.display = "none";
+      document.getElementById("sessionTimer").classList.remove("urgent");
+
+      /* Reset PIN input */
+      pinInput = "";
+      updateDots();
+      hideError();
+
+      /* Show login screen */
+      const screen = document.getElementById("loginScreen");
+      screen.style.display = "flex";
+      setTimeout(() => screen.classList.remove("hidden"), 20);
+    }
+
+    window.addEventListener("load", () => {
+      const first = sidenav.querySelector(".sn-item.active");
+      updateIndicator(first);
+    });
+  </script>
 </body>
 </html>
