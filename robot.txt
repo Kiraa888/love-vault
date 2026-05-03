@@ -1,0 +1,16 @@
+# Love Vault - Block Search Engines from Private Content
+
+# Block all search engines from indexing images and vault
+User-agent: *
+Disallow: /images/
+Disallow: /photos/
+Disallow: /vault/
+Disallow: /gallery/
+Disallow: /private/
+
+# If you have specific image folders, add them here:
+# Disallow: /assets/images/
+# Disallow: /img/
+
+# Allow search engines to index only the main page (optional)
+# Allow: /index.html
