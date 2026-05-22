@@ -1959,5 +1959,18 @@ Days later, unable to resist reliving that simple happiness, we found ourselves 
       deferredPrompt = null;
     });
   </script>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/love-vault/sw.js')
+      .then((registration) => {
+        console.log('Service Worker registered:', registration);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
+  </script>
 </body>
 </html>
