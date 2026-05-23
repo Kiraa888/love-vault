@@ -5,39 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Love Vault – ANIDIRA | Our Private Love Story & Memories</title>
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Love Vault is a private digital memory space for ANIDIRA — a collection of our love story, cherished photos, romantic journey, and beautiful moments together since 23 September 2019.">
-  <meta name="keywords" content="love vault, ANIDIRA, love story, couple memories, romantic website, our love story, private love space, love vault website, couple photo gallery, love journey">
-  <meta name="author" content="ANIDIRA">
   
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Love Vault – ANIDIRA | Our Private Love Story & Memories">
-  <meta property="og:description" content="A private digital vault built from moments, laughter, and love. Our love story, photos, and memories — all in one beautiful place. Since 23 September 2019.">
-  <meta property="og:url" content="https://kiraa888.github.io/love-vault/">
-  <meta property="og:site_name" content="Love Vault">
-  <meta property="og:locale" content="en_IN">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Love Vault",
-    "alternateName": "ANIDIRA Love Vault",
-    "url": "https://kiraa888.github.io/love-vault/",
-    "description": "A private digital memory space for ANIDIRA — our love story, photos, and cherished moments since 23 September 2019.",
-    "inLanguage": "en-IN",
-    "creator": {
-      "@type": "Person",
-      "name": "ANIDIRA"
-    }
-  }
-  </script>
-
-  <link rel="manifest" href="manifest.json">
+  <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#e8a0b0">
+  <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-  <link rel="apple-touch-icon" href="icon-apple.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -51,11 +23,6 @@
     <div class="loader-text">Loading Love Vault...</div>
   </div>
 
-  <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;" aria-hidden="true">
-    <h1>Love Vault – ANIDIRA Private Love Story and Memories</h1>
-    <p>Love Vault is a private and romantic digital memory space created for ANIDIRA.</p>
-  </div>
-
   <div class="fs-overlay" id="fsOverlay">
     <span class="fs-close" onclick="closeFullscreen()">&#x2715;</span>
     <img id="fsImg" src="" alt="Fullscreen Image">
@@ -66,37 +33,21 @@
       <span class="login-heart">🤍</span>
       <div class="login-title">Love Vault</div>
       <div class="login-sub">ANIDIRA · Private Space</div>
-
       <div class="pin-dots" id="pinDots">
-        <div class="pin-dot" id="dot0"></div>
-        <div class="pin-dot" id="dot1"></div>
-        <div class="pin-dot" id="dot2"></div>
-        <div class="pin-dot" id="dot3"></div>
+        <div class="pin-dot" id="dot0"></div><div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div><div class="pin-dot" id="dot3"></div>
       </div>
-
       <div class="pin-keypad">
-        <button class="pin-key" onclick="pinPress('1')">1</button>
-        <button class="pin-key" onclick="pinPress('2')">2</button>
-        <button class="pin-key" onclick="pinPress('3')">3</button>
-        <button class="pin-key" onclick="pinPress('4')">4</button>
-        <button class="pin-key" onclick="pinPress('5')">5</button>
-        <button class="pin-key" onclick="pinPress('6')">6</button>
-        <button class="pin-key" onclick="pinPress('7')">7</button>
-        <button class="pin-key" onclick="pinPress('8')">8</button>
-        <button class="pin-key" onclick="pinPress('9')">9</button>
-        <button class="pin-key zero" onclick="pinPress('0')">0</button>
-        <button class="pin-key del" onclick="pinDel()">⌫</button>
+        <button class="pin-key" onclick="pinPress('1')">1</button><button class="pin-key" onclick="pinPress('2')">2</button><button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button><button class="pin-key" onclick="pinPress('5')">5</button><button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button><button class="pin-key" onclick="pinPress('8')">8</button><button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key zero" onclick="pinPress('0')">0</button><button class="pin-key del" onclick="pinDel()">⌫</button>
       </div>
-
       <div class="login-error" id="loginError">Wrong PIN. Try again 🔒</div>
     </div>
   </div>
 
-  <div id="sessionTimer">
-    <span class="timer-icon">⏳</span>
-    <span id="timerDisplay">10:00</span>
-  </div>
-
+  <div id="sessionTimer"><span class="timer-icon">⏳</span><span id="timerDisplay">10:00</span></div>
   <div id="sessionWarning">
     <div class="warning-card">
       <span class="warning-icon">⏰</span>
@@ -109,32 +60,18 @@
 
   <nav class="top-navbar">
     <div class="logo" onclick="goHome()">
-      <span class="logo-name">Love Vault</span>
-      <span class="sub-text">Since 23 · 09 · 2019</span>
+      <span class="logo-name">Love Vault</span><span class="sub-text">Since 23 · 09 · 2019</span>
     </div>
     <div class="mixed-name" onclick="goHome()">ANIDIRA 💞</div>
   </nav>
-
   <div class="counter" id="relationshipCounter"></div>
 
   <section class="hero" id="home">
     <div class="slider" id="slider">
-      <div class="slide active">
-        <img src="https://iili.io/q0QEQWJ.jpg" alt="The Bench Where Time Paused">
-        <div class="overlay">🌅 The Bench Where Time Paused</div>
-      </div>
-      <div class="slide">
-        <img src="https://iili.io/q0QEUlV.jpg" alt="Hold Tight, The Journey is Ours">
-        <div class="overlay">🤍 Hold Tight, The Journey is Ours</div>
-      </div>
-      <div class="slide">
-        <img src="https://iili.io/q0QE6R1.jpg" alt="ANIDIRA">
-        <div class="overlay">💞 ANIDIRA</div>
-      </div>
-      <div class="slide">
-        <img src="https://iili.io/BLlKBkP.png" alt="Steps Since 2019">
-        <div class="overlay">Steps Since 2019</div>
-      </div>
+      <div class="slide active"><img src="https://iili.io/q0QEQWJ.jpg"><div class="overlay">🌅 The Bench Where Time Paused</div></div>
+      <div class="slide"><img src="https://iili.io/q0QEUlV.jpg"><div class="overlay">🤍 Hold Tight, The Journey is Ours</div></div>
+      <div class="slide"><img src="https://iili.io/q0QE6R1.jpg"><div class="overlay">💞 ANIDIRA</div></div>
+      <div class="slide"><img src="https://iili.io/BLlKBkP.png"><div class="overlay">Steps Since 2019</div></div>
     </div>
     <div class="dots" id="dots"></div>
   </section>
@@ -150,22 +87,7 @@
     <p style="font-size:18px;line-height:2;opacity:0.6;letter-spacing:0.4px;">
       This is our little corner of the internet -- a vault built from moments, laughter, and love. Every photo here holds a story we never want to forget. Made with all the love in the world, for us. 🤍
     </p>
-    <div class="social-links">
-      <a href="https://www.instagram.com/somesh_0620?igsh=ZXVyeWNhc2x3Nzdk" target="_blank" class="social-btn" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      </a>
-      <a href="https://www.facebook.com/share/1Du7jdB9J8/" target="_blank" class="social-btn" aria-label="Facebook">
-        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      </a>
-      <a href="https://wa.me/916295650199" target="_blank" class="social-btn" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 0C5.394 0 0 5.394 0 12.031c0 2.115.549 4.167 1.594 5.975L.114 23.411l5.542-1.453a12.008 12.008 0 006.375 1.808h.005c6.634 0 12.028-5.394 12.028-12.031S18.665 0 12.031 0zm0 21.737c-1.785 0-3.535-.48-5.07-1.39l-.364-.216-3.768.988.995-3.673-.237-.377A10.027 10.027 0 012.031 12.03c0-5.522 4.494-10.016 10.02-10.016 5.513 0 10.007 4.495 10.007 10.017s-4.494 10.017-10.027 10.017zm5.503-7.518c-.302-.151-1.786-.882-2.063-.983-.277-.101-.479-.151-.68.151-.202.302-.781.983-.957 1.185-.176.201-.353.226-.655.075-1.282-.646-2.458-1.458-3.414-2.493-.736-.796-1.19-1.745-1.32-2.026-.13-.281-.014-.433.137-.584.135-.136.302-.352.453-.529.151-.176.202-.302.302-.503.1-.202.05-.378-.025-.529-.076-.151-.68-1.642-.931-2.25-.246-.593-.495-.512-.68-.521-.176-.008-.378-.01-.58-.01-.201 0-.528.076-.805.378-.277.302-1.057 1.033-1.057 2.518s1.082 2.919 1.233 3.121c.151.202 2.126 3.245 5.148 4.549 2.058.889 2.872.934 3.842.784.821-.128 2.568-1.049 2.921-2.063.352-1.014.352-1.882.247-2.063-.106-.181-.383-.282-.685-.433z"/></svg>
-      </a>
-      <a href="mailto:baurianimesh957@gmail.com" class="social-btn" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
-    </div>
   </section>
-
   <footer class="footer">Made with love · ANIDIRA 🤍</footer>
 
   <div class="modal" id="galleryModal">
@@ -189,7 +111,6 @@
       <span class="close" onclick="closeStoryModal()">&#x2715;</span>
       <h2 id="storyModalTitle"></h2>
       <p class="modal-date" id="storyModalDate"></p>
-      
       <div id="audioPlayerContainer" style="display: none; justify-content: center; margin-bottom: 24px;">
         <button id="storyAudioBtn" class="dl-btn" style="display: flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 30px;">
           <span class="material-symbols-outlined" id="audioIcon">play_arrow</span>
@@ -197,32 +118,17 @@
         </button>
         <audio id="storyAudio" style="display: none;"></audio>
       </div>
-
       <img id="storyModalImg" src="" alt="Story Image" style="display: none;">
       <div class="story-body" id="storyModalBody"></div>
     </div>
   </div>
 
-  <nav class="sidenav" id="sidenav" aria-label="Site navigation">
-    <div class="sn-bar" aria-hidden="true"></div>
-    <div class="sn-glow" aria-hidden="true"></div>
-
-    <button class="sn-item active" data-target="home" aria-label="Home" aria-current="page">
-      <span class="material-symbols-outlined">home</span>
-      <span class="sn-label">Home</span>
-    </button>
-    <button class="sn-item" data-target="memories" aria-label="Memories">
-      <span class="material-symbols-outlined">favorite</span>
-      <span class="sn-label">Memory</span>
-    </button>
-    <button class="sn-item" data-target="timeline" aria-label="Timeline">
-      <span class="material-symbols-outlined">timeline</span>
-      <span class="sn-label">Timeline</span>
-    </button>
-    <button class="sn-item" data-target="about" aria-label="About">
-      <span class="material-symbols-outlined">info</span>
-      <span class="sn-label">About</span>
-    </button>
+  <nav class="sidenav" id="sidenav">
+    <div class="sn-bar"></div><div class="sn-glow"></div>
+    <button class="sn-item active" data-target="home"><span class="material-symbols-outlined">home</span></button>
+    <button class="sn-item" data-target="memories"><span class="material-symbols-outlined">favorite</span></button>
+    <button class="sn-item" data-target="timeline"><span class="material-symbols-outlined">timeline</span></button>
+    <button class="sn-item" data-target="about"><span class="material-symbols-outlined">info</span></button>
   </nav>
 
   <script src="galleryData.js"></script>
@@ -233,8 +139,12 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/love-vault/sw.js')
-          .then((registration) => { console.log('Service Worker registered'); })
-          .catch((error) => { console.log('Service Worker registration failed'); });
+        .then((registration) => {
+          console.log('✅ Service Worker registered successfully:', registration.scope);
+        })
+        .catch((error) => {
+          console.log('❌ Service Worker registration failed:', error);
+        });
       });
     }
   </script>
