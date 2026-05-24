@@ -1,10 +1,5 @@
-/* ── GLOBAL LOADER LOGIC ── */
+/* ── INIT LOGIC ── */
 window.addEventListener("load", () => {
-  setTimeout(() => {
-    const loader = document.getElementById("globalLoader");
-    loader.style.opacity = "0";
-    setTimeout(() => { loader.style.display = "none"; }, 500);
-  }, 1500); 
   const first = document.querySelector(".sn-item.active");
   updateIndicator(first);
 });
@@ -118,7 +113,7 @@ document.getElementById("downloadBtn").addEventListener("click", async () => {
   setTimeout(() => { btn.textContent = "Download"; btn.disabled = false; }, 2500);
 });
 
-/* ── STORY MODAL (WITH AUDIO FIXES) ── */
+/* ── STORY MODAL (WITH AUDIO & PROGRESS BAR) ── */
 const storyModal = document.getElementById("storyModal");
 const storyAudio = document.getElementById("storyAudio");
 const storyAudioBtn = document.getElementById("storyAudioBtn");
@@ -126,10 +121,36 @@ const audioIcon = document.getElementById("audioIcon");
 const audioText = document.getElementById("audioText");
 const audioPlayerContainer = document.getElementById("audioPlayerContainer");
 
+const audioProgress = document.getElementById("audioProgress");
+const audioCurrentTime = document.getElementById("audioCurrentTime");
+const audioDuration = document.getElementById("audioDuration");
+
+function formatTime(sec) {
+  if (isNaN(sec)) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s < 10 ? '0' + s : s}`;
+}
+
+storyAudio.addEventListener('loadedmetadata', () => {
+  audioDuration.textContent = formatTime(storyAudio.duration);
+  audioProgress.max = Math.floor(storyAudio.duration);
+});
+
+storyAudio.addEventListener('timeupdate', () => {
+  audioProgress.value = Math.floor(storyAudio.currentTime);
+  audioCurrentTime.textContent = formatTime(storyAudio.currentTime);
+});
+
+audioProgress.addEventListener('input', () => {
+  storyAudio.currentTime = audioProgress.value;
+});
+
 storyAudio.addEventListener('waiting', () => { audioIcon.textContent = 'hourglass_empty'; audioText.textContent = 'Buffering...'; });
 storyAudio.addEventListener('canplay', () => { if (storyAudio.paused) { audioIcon.textContent = 'play_arrow'; audioText.textContent = 'Listen to our story'; } });
 storyAudio.addEventListener('playing', () => { audioIcon.textContent = 'pause'; audioText.textContent = 'Pause story'; });
 storyAudio.addEventListener('pause', () => { audioIcon.textContent = 'play_arrow'; audioText.textContent = 'Listen to our story'; });
+storyAudio.addEventListener('ended', () => { audioIcon.textContent = 'play_arrow'; audioText.textContent = 'Listen again'; audioProgress.value = 0; audioCurrentTime.textContent = "0:00"; });
 
 function openStoryModal(btn) {
   const parent = btn.closest('.tl-content');
@@ -150,6 +171,9 @@ function openStoryModal(btn) {
     storyAudio.src = audioSrc;
     audioPlayerContainer.style.display = 'flex';
     audioIcon.textContent = 'play_arrow'; audioText.textContent = 'Listen to our story';
+    audioProgress.value = 0;
+    audioCurrentTime.textContent = "0:00";
+    audioDuration.textContent = "0:00";
   } else {
     audioPlayerContainer.style.display = 'none'; storyAudio.src = '';
   }
@@ -161,6 +185,8 @@ function closeStoryModal() {
   storyModal.classList.remove('open'); document.body.style.overflow = '';
   if (!storyAudio.paused) { storyAudio.pause(); }
   storyAudio.currentTime = 0;
+  audioProgress.value = 0;
+  audioCurrentTime.textContent = "0:00";
   audioIcon.textContent = 'play_arrow'; audioText.textContent = 'Listen to our story';
 }
 
@@ -264,7 +290,6 @@ function extendSession() { document.getElementById("sessionWarning").classList.r
 /* ── FLOATING LOVE PARTICLES ── */
 function createParticle() {
   if (!document.getElementById("loginScreen").classList.contains("hidden")) return;
-  if (document.getElementById("globalLoader").style.display !== "none" && document.getElementById("globalLoader").style.opacity !== "0") return;
   const p = document.createElement("div"); p.innerHTML = "💕"; p.className = "particle";
   p.style.left = Math.random() * 100 + "vw"; p.style.fontSize = (Math.random() * 10 + 12) + "px"; p.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
   document.body.appendChild(p); setTimeout(() => { p.remove(); }, 10000); 
